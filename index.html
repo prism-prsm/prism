@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PRISM (PRSM) — The Light Lab · Share Sale on BSC</title>
-<meta name="description" content="PRISM is a fixed-supply share sale on BNB Smart Chain. 3,000 shares of 1,000,000 PRSM: 500 free (1 per wallet), 2,500 at 0.001 BNB. 100% of proceeds go to the treasury. Unsold supply is burned at close.">
+<title>PRISM (PRSM) — The Living Spectrum · Share Sale on BSC</title>
+<meta name="description" content="PRISM is a fixed-supply share sale on BNB Smart Chain. 3,000 shares of 1,000,000 PRSM: 500 free (1 per wallet), 2,500 at 0.001 BNB. The window runs 7 days; unsold supply is burned at close.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><polygon points='50,8 92,86 8,86' fill='none' stroke='%23141414' stroke-width='7'/><polygon points='50,34 74,86 26,86' fill='%23ff5d5d'/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
@@ -16,249 +16,347 @@
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
-  body{background:var(--paper);color:var(--ink);font-family:"Space Grotesk",system-ui,sans-serif;
-    background-image:linear-gradient(#14141410 1px,transparent 1px),linear-gradient(90deg,#14141410 1px,transparent 1px);
-    background-size:34px 34px;}
+  body{background:var(--paper);color:var(--ink);font-family:"Space Grotesk",system-ui,sans-serif;overflow-x:hidden}
   .mono{font-family:"IBM Plex Mono",monospace}
-  .wrap{max-width:1060px;margin:0 auto;padding:0 20px}
-  header{border-bottom:3px solid var(--line);background:var(--paper)}
-  .topbar{display:flex;justify-content:space-between;align-items:center;padding:14px 0;gap:12px;flex-wrap:wrap}
-  .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.14em}
-  .brand svg{width:26px;height:26px}
-  .topbar nav{display:flex;gap:18px;font-family:"IBM Plex Mono",monospace;font-size:13px}
-  .topbar nav a{color:var(--ink);text-decoration:none;border-bottom:2px solid transparent}
-  .topbar nav a:hover{border-color:var(--ink)}
-  .spec-tag{font-family:"IBM Plex Mono",monospace;font-size:12px;border:2px solid var(--line);padding:6px 10px;background:#fff}
-  /* hero */
-  .hero{padding:52px 0 30px;border-bottom:3px solid var(--line)}
-  .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:13px;letter-spacing:.18em;color:var(--mut)}
-  h1{font-size:clamp(64px,13vw,148px);line-height:.94;font-weight:700;letter-spacing:-.01em;margin:10px 0 4px}
-  h1 .spec{background:linear-gradient(90deg,var(--red),var(--org),var(--yel),var(--grn),var(--blu),var(--ind),var(--vio));
+  #bg{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block}
+  .layer{position:relative;z-index:1}
+
+  /* ===== STAGE: one screen, asymmetric composition ===== */
+  .stage{position:relative;min-height:calc(100vh - 62px)}
+  .vtitle{position:absolute;left:14px;top:50%;transform:translateY(-50%);
+    display:flex;flex-direction:column;align-items:center;line-height:.8;font-weight:700;
+    font-size:clamp(58px,15.5vh,148px);letter-spacing:0;user-select:none}
+  .vtitle span{display:block}
+  .vtitle .m{background:linear-gradient(180deg,var(--red),var(--org),var(--yel),var(--grn),var(--blu),var(--ind),var(--vio));
     -webkit-background-clip:text;background-clip:text;color:transparent}
-  .lede{font-size:clamp(17px,2.4vw,21px);max-width:620px;line-height:1.45}
+  .vcap{position:absolute;left:20px;bottom:18px;font-family:"IBM Plex Mono",monospace;font-size:11px;
+    letter-spacing:.22em;color:var(--mut);writing-mode:vertical-rl;transform:rotate(180deg)}
+  .lede{position:absolute;left:clamp(96px,13.5vw,196px);top:11%;max-width:400px;
+    background:#ffffffd9;border:3px solid var(--line);padding:18px 20px;box-shadow:7px 7px 0 var(--line)}
+  .lede .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.18em;color:var(--mut);margin-bottom:8px}
+  .lede p{font-size:16.5px;line-height:1.5}
   .lede b{background:linear-gradient(transparent 62%,var(--yel) 62%)}
-  .beambox{margin:34px 0 8px;border:3px solid var(--line);background:#fff;padding:10px 6px 2px}
-  .beambox svg{width:100%;height:auto;display:block}
-  .beamcap{display:flex;justify-content:space-between;font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--mut);padding:8px 8px 10px}
-  .cdrow{display:flex;gap:14px;flex-wrap:wrap;margin-top:22px}
-  .cd{border:2px solid var(--line);background:#fff;padding:10px 16px;font-family:"IBM Plex Mono",monospace}
-  .cd .k{font-size:11px;letter-spacing:.16em;color:var(--mut)}
-  .cd .v{font-size:22px;font-weight:600}
-  /* spectrum progress */
-  .spectrum{padding:34px 0 6px}
-  .spec-head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px}
-  .spec-head h2{font-size:26px}
-  .track{position:relative;height:30px;border:3px solid var(--line);background:#fff;margin-top:14px;overflow:hidden}
-  .track i{position:absolute;inset:0;width:0%;
-    background:linear-gradient(90deg,var(--red),var(--org),var(--yel),var(--grn),var(--blu),var(--ind),var(--vio));
-    transition:width 1s ease}
-  .scale{display:flex;justify-content:space-between;font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--mut);margin-top:6px}
-  /* specimen table */
-  .specimen{padding:30px 0}
-  table{width:100%;border-collapse:collapse;background:#fff;border:3px solid var(--line)}
-  th,td{border-bottom:1.5px solid #14141433;padding:11px 14px;text-align:left;font-size:15px}
-  th{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.14em;color:var(--mut);width:34%}
-  tr:last-child th,tr:last-child td{border-bottom:none}
-  td{font-weight:600}
-  /* benches */
-  .benches{display:grid;grid-template-columns:1fr 1fr;gap:20px;padding:16px 0 8px}
-  @media(max-width:760px){.benches{grid-template-columns:1fr}}
-  .bench{border:3px solid var(--line);background:#fff;padding:22px;position:relative}
-  .bench .tag{position:absolute;top:-14px;left:16px;font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:600;padding:4px 10px;border:2.5px solid var(--line)}
-  .tag.free{background:var(--grn)} .tag.paid{background:var(--vio);color:#fff}
-  .bench h3{font-size:23px;margin:6px 0 4px}
-  .bench p{color:var(--mut);line-height:1.5;font-size:15px}
-  .meter{height:16px;border:2.5px solid var(--line);background:#fff;margin:16px 0 8px;overflow:hidden}
+  .cdchip{position:absolute;top:20px;right:20px;display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+  .cd{border:2.5px solid var(--line);background:#fff;padding:8px 14px;font-family:"IBM Plex Mono",monospace}
+  .cd .k{font-size:10.5px;letter-spacing:.16em;color:var(--mut)}
+  .cd .v{font-size:19px;font-weight:600}
+
+  /* ===== SPECIMEN CARD: floating claim / buy panel ===== */
+  .specimen-card{position:absolute;right:22px;bottom:24px;width:min(432px,calc(100vw - 44px));
+    background:#fff;border:3px solid var(--line);box-shadow:9px 9px 0 var(--line);padding:20px 20px 14px}
+  .sc-head{display:flex;justify-content:space-between;align-items:center;gap:10px;border-bottom:2.5px solid var(--line);padding-bottom:10px;margin-bottom:14px}
+  .sc-head .t{font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:600;letter-spacing:.14em}
+  .sc-head svg{width:64px;height:30px;flex:none}
+  .bench{position:relative;padding:4px 0 2px}
+  .bench + .bench{border-top:1.5px dashed #14141455;margin-top:16px;padding-top:16px}
+  .bench h3{font-size:21px;margin-bottom:3px}
+  .bench h3 .price{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600;vertical-align:middle;
+    border:2px solid var(--line);padding:2px 8px;margin-left:8px}
+  .bench h3 .price.free{background:var(--grn)} .bench h3 .price.paid{background:var(--vio);color:#fff}
+  .bench p{color:var(--mut);line-height:1.45;font-size:14.5px}
+  .meter{height:14px;border:2.5px solid var(--line);background:#fff;margin:12px 0 6px;overflow:hidden}
   .meter i{display:block;height:100%;width:0%;transition:width 1s ease}
   .meter .f{background:var(--grn)} .meter .p{background:var(--vio)}
-  .meter-row{display:flex;justify-content:space-between;font-family:"IBM Plex Mono",monospace;font-size:13px}
-  .qtyrow{display:flex;align-items:center;gap:12px;margin:14px 0 4px}
-  .qtyrow input{width:90px;font-family:"IBM Plex Mono",monospace;font-size:17px;padding:9px;border:2.5px solid var(--line)}
+  .meter-row{display:flex;justify-content:space-between;font-family:"IBM Plex Mono",monospace;font-size:12.5px}
+  .qtyrow{display:flex;align-items:center;gap:12px;margin:12px 0 2px}
+  .qtyrow input{width:84px;font-family:"IBM Plex Mono",monospace;font-size:16px;padding:8px;border:2.5px solid var(--line)}
   .qtyrow .tot{font-family:"IBM Plex Mono",monospace;font-weight:600}
-  .btn{display:inline-block;width:100%;margin-top:14px;padding:15px;font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:17px;
+  .btn{display:inline-block;width:100%;margin-top:12px;padding:14px;font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:16px;
     border:3px solid var(--line);cursor:pointer;background:var(--ink);color:#fff;transition:transform .08s}
   .btn:hover:not(:disabled){transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--line)}
   .btn:disabled{opacity:.45;cursor:not-allowed}
   .btn.freeb{background:var(--grn);color:var(--ink)} .btn.paidb{background:var(--vio)}
-  .status{font-family:"IBM Plex Mono",monospace;font-size:13.5px;padding:6px 0 26px;color:var(--mut)}
-  /* share */
-  .share{border:3px dashed var(--line);background:#fffbe8;padding:22px;margin:8px 0 30px}
+  .status{font-family:"IBM Plex Mono",monospace;font-size:12.5px;padding-top:12px;color:var(--mut);line-height:1.45}
+
+  /* ===== SHARE BOX ===== */
+  .sharewrap{max-width:1060px;margin:0 auto;padding:26px 20px 0}
+  .share{border:3px dashed var(--line);background:#fffbe8;padding:22px}
   .share .tag{display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:600;background:var(--yel);border:2.5px solid var(--line);padding:4px 10px;margin-bottom:12px}
   .sharetext{white-space:pre-wrap;font-size:16px;line-height:1.55;border:2px solid var(--line);background:#fff;padding:14px}
   .share .row{display:flex;gap:12px;margin-top:14px;flex-wrap:wrap}
   .share .row .btn{width:auto;padding:12px 22px;margin-top:0}
   .btn.ghost{background:#fff;color:var(--ink)}
-  /* procedure */
-  .proc{padding:20px 0 34px}
-  .proc h2,.notes h2,.obs h2{font-size:28px;margin-bottom:16px}
-  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-  @media(max-width:760px){.steps{grid-template-columns:1fr}}
-  .step{border:3px solid var(--line);background:#fff;padding:18px}
-  .step .no{font-family:"IBM Plex Mono",monospace;font-size:13px;letter-spacing:.14em;color:var(--mut)}
-  .step h4{font-size:19px;margin:6px 0}
-  .step p{color:var(--mut);line-height:1.5;font-size:15px}
-  /* agent notes */
-  .notes{padding:6px 0 34px}
-  .notebook{border:3px solid var(--line);background:#fff;padding:20px;
-    background-image:repeating-linear-gradient(#fff 0 27px,#3e9bff30 27px 28px)}
-  .notebook pre{white-space:pre-wrap;font-family:"IBM Plex Mono",monospace;font-size:13.5px;line-height:28px}
-  .notebook .btn{width:auto;padding:12px 22px}
-  /* observations */
-  .obs{padding:6px 0 40px}
-  .qa{border:3px solid var(--line);background:#fff;padding:16px 18px;margin-bottom:12px}
-  .qa h4{font-size:17px;margin-bottom:4px}
-  .qa p{color:var(--mut);line-height:1.5;font-size:15px}
-  footer{border-top:3px solid var(--line);padding:22px 0 34px;font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--mut)}
-  footer a{color:var(--ink)}
+
+  /* ===== WAVELENGTH SCALE: sticky bottom edge ===== */
+  .nmscale{position:sticky;bottom:0;z-index:5;background:#fff;border-top:3px solid var(--line);padding:8px 16px 10px}
+  .nm-labels{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;
+    font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--mut)}
+  .nm-labels .mid{color:var(--ink);font-weight:600}
+  .nm-track{position:relative;height:16px;border:2.5px solid var(--line);margin-top:6px;overflow:hidden;
+    background:linear-gradient(90deg,var(--vio),var(--ind),var(--blu),var(--grn),var(--yel),var(--org),var(--red))}
+  .nm-track i{position:absolute;top:0;right:0;bottom:0;width:100%;background:#ecece5;transition:width 1s ease}
+
+  /* ===== SLIDES: horizontal info strip ===== */
+  .slides-head{max-width:1060px;margin:0 auto;padding:30px 20px 0;display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+  .slides-head h2{font-size:26px}
+  .slides-head p{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--mut);letter-spacing:.14em}
+  .slides{display:flex;gap:18px;overflow-x:auto;padding:18px 20px 30px;scroll-snap-type:x mandatory;
+    max-width:1060px;margin:0 auto;scrollbar-width:thin}
+  .slide{flex:0 0 min(430px,86vw);scroll-snap-align:start;border:3px solid var(--line);background:#fff;padding:20px;box-shadow:6px 6px 0 var(--line)}
+  .slide .no{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.16em;color:var(--mut)}
+  .slide h3{font-size:21px;margin:6px 0 12px}
+  .slide p{color:var(--mut);line-height:1.5;font-size:14.5px}
+  .slide dl{display:grid;grid-template-columns:auto 1fr;gap:7px 14px;font-size:14px}
+  .slide dt{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.1em;color:var(--mut);padding-top:2px}
+  .slide dd{font-weight:600}
+  .slide .step{margin-bottom:14px}
+  .slide .step:last-child{margin-bottom:0}
+  .slide .step h4{font-size:16.5px;margin-bottom:2px}
+  .slide .qa{margin-bottom:14px}
+  .slide .qa:last-child{margin-bottom:0}
+  .slide .qa h4{font-size:16px;margin-bottom:2px}
+  .notebook{background-image:repeating-linear-gradient(#fff 0 27px,#3e9bff30 27px 28px);border:2px solid var(--line);padding:12px 14px}
+  .notebook pre{white-space:pre-wrap;font-family:"IBM Plex Mono",monospace;font-size:12.5px;line-height:28px;color:var(--ink)}
+  .slide .btn{width:auto;padding:11px 20px;font-size:14.5px}
   .addr{word-break:break-all}
+  footer{position:relative;z-index:1;border-top:3px solid var(--line);background:#ffffffd9;padding:18px 20px 26px;
+    font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--mut)}
+  footer .in{max-width:1060px;margin:0 auto}
+  footer a{color:var(--ink)}
+
+  @media(max-width:860px){
+    .stage{min-height:0;padding:16px 0 22px}
+    .vtitle{position:static;transform:none;flex-direction:row;justify-content:flex-start;gap:2px;
+      font-size:clamp(52px,17vw,84px);padding:6px 16px 0;line-height:.9}
+    .vcap{display:none}
+    .lede{position:static;margin:16px;max-width:none}
+    .cdchip{position:static;margin:0 16px;justify-content:flex-start}
+    .specimen-card{position:static;margin:18px 16px 0;width:auto}
+    .nm-labels .mid{order:3;width:100%}
+  }
 </style>
 </head>
 <body>
-<header>
-  <div class="wrap topbar">
-    <div class="brand">
-      <svg viewBox="0 0 100 100" aria-hidden="true"><polygon points="50,8 92,86 8,86" fill="none" stroke="#141414" stroke-width="7"/><polygon points="50,34 74,86 26,86" fill="#ff5d5d"/></svg>
-      PRISM&nbsp;LAB
-    </div>
-    <nav>
-      <a href="#sale">Benches</a><a href="#specimen">Specimen</a><a href="#procedure">Procedure</a><a href="#agents">For Agents</a>
-    </nav>
-    <span class="spec-tag">SPECIMEN Nº 47 · BSC</span>
-  </div>
-</header>
+<canvas id="bg" aria-hidden="true"></canvas>
 
-<section class="hero">
-  <div class="wrap">
-    <p class="eyebrow">OPTICS BENCH · FIXED-SUPPLY SHARE SALE · BNB SMART CHAIN</p>
-    <h1>PRI<span class="spec">SM</span></h1>
-    <p class="lede">One beam of plain white light goes in. <b>Seven colors</b> come out. PRSM is the spectrum, sold by the share: <b>3,000 shares</b> of 1,000,000 PRSM — the first <b>500 are free</b>, one per wallet, and every payment lands in the treasury the second it is made.</p>
+<div class="layer">
+  <!-- ===== STAGE ===== -->
+  <main class="stage">
+    <div class="vtitle" aria-label="PRISM"><span>P</span><span>R</span><span>I</span><span>S</span><span class="m">M</span></div>
+    <p class="vcap">OPTICS BENCH · BNB SMART CHAIN · SPECIMEN Nº 47</p>
 
-    <div class="beambox" aria-hidden="true">
-      <svg viewBox="0 0 900 210">
-        <!-- incoming beam -->
-        <polygon points="0,98 300,102 300,110 0,116" fill="#141414" opacity="0.85"/>
-        <!-- prism -->
-        <polygon points="330,20 420,180 240,180" fill="#ffffff" stroke="#141414" stroke-width="5"/>
-        <polygon points="330,84 372,180 288,180" fill="#141414" opacity="0.08"/>
-        <!-- spectrum fan (grows with sales) -->
-        <g id="fan">
-          <polygon points="352,96 890,6 890,34 356,104" fill="#ff5d5d"/>
-          <polygon points="356,104 890,40 890,66 358,110" fill="#ff9f2e"/>
-          <polygon points="358,110 890,72 890,96 359,116" fill="#ffd23e"/>
-          <polygon points="359,116 890,102 890,124 359,121" fill="#3ecf6f"/>
-          <polygon points="359,121 890,130 890,152 358,126" fill="#3e9bff"/>
-          <polygon points="358,126 890,158 890,180 356,130" fill="#5a5ae0"/>
-          <polygon points="356,130 890,186 890,206 352,134" fill="#a55eea"/>
-        </g>
-      </svg>
-      <div class="beamcap"><span>FIG. 1 — REFRACTION, LIVE. THE FAN WIDENS AS SHARES SELL.</span><span>SCALE 1 : 1,000,000</span></div>
-    </div>
-
-    <div class="cdrow">
+    <div class="cdchip">
       <div class="cd"><div class="k">BEAM LIVE IN</div><div class="v" id="cdStart">--:--:--</div></div>
-      <div class="cd"><div class="k">WINDOW CLOSES</div><div class="v">23 NOV · 21:30 WIB</div></div>
-      <div class="cd"><div class="k">PROCEEDS TO TREASURY</div><div class="v">100%</div></div>
+      <div class="cd"><div class="k">WINDOW</div><div class="v">7 DAYS</div></div>
+      <div class="cd"><div class="k">CLOSES</div><div class="v">23 NOV · 21:30 WIB</div></div>
     </div>
-  </div>
-</section>
 
-<section class="spectrum wrap">
-  <div class="spec-head">
-    <h2>The spectrum so far</h2>
-    <p class="mono"><span id="totalTakenLbl">0</span> shares taken · <span id="totalLeftLbl">3,000 left</span></p>
-  </div>
-  <div class="track"><i id="totalBar"></i></div>
-  <div class="scale"><span>380 nm · VIOLET END</span><span>VISIBLE LIGHT, SOLD BY THE SHARE</span><span>750 nm · RED END</span></div>
-</section>
-
-<section class="benches wrap" id="sale">
-  <div class="bench">
-    <span class="tag free">SAMPLE A — FREE</span>
-    <h3>The free share</h3>
-    <p>Every wallet may refract one share for free. No purchase, no catch — 500 samples, first come first served.</p>
-    <div class="meter"><i class="f" id="freeMeter"></i></div>
-    <div class="meter-row"><span><span id="freeSold">0</span> / 500 claimed</span><span><span id="freeLeft">500</span> left</span></div>
-    <button class="btn freeb" id="claimBtn" type="button" disabled>Claim opens at launch</button>
-  </div>
-  <div class="bench">
-    <span class="tag paid">SAMPLE B — 0.001 BNB</span>
-    <h3>Buy shares</h3>
-    <p>2,500 shares at a fixed 0.001 BNB each, as many as you like. The full amount is forwarded to the treasury in the same transaction.</p>
-    <div class="meter"><i class="p" id="paidMeter"></i></div>
-    <div class="meter-row"><span><span id="paidSold">0</span> / 2,500 sold</span><span><span id="paidLeft">2,500</span> left</span></div>
-    <div class="qtyrow">
-      <input id="buyQty" type="number" min="1" step="1" value="1" aria-label="Number of shares">
-      <span class="tot" id="buyTotal">= 0.001 BNB</span>
+    <div class="lede">
+      <p class="eyebrow">A LIVING SPECTRUM, SOLD BY THE SHARE</p>
+      <p>One beam of plain white light goes in — <b>seven colors</b> come out, and the fan behind this page never sits still. PRSM is that spectrum: <b>3,000 shares</b> of 1,000,000 PRSM. The first <b>500 are free</b>, one per wallet.</p>
     </div>
-    <button class="btn paidb" id="buyBtn" type="button" disabled>Sale opens at launch</button>
-  </div>
-</section>
-<div class="wrap"><p class="status" id="walletStatus">Wallet not connected yet — claiming and buying connect it for you.</p></div>
 
-<div class="wrap">
-  <section class="share" id="shareBox" hidden>
-    <span class="tag">MEASUREMENT LOGGED 🎉</span>
-    <p style="margin-bottom:12px">Your share is in. If you want to tell the lab, here is a ready-made post — nothing goes out without your tap.</p>
-    <div class="sharetext" id="shareText"></div>
-    <div class="row">
-      <a class="btn" id="shareBtn" href="#" target="_blank" rel="noopener" style="background:var(--blu)">Post it on X →</a>
-      <button class="btn ghost" id="shareClose" type="button">No thanks</button>
+    <section class="specimen-card" id="sale">
+      <div class="sc-head">
+        <span class="t">SPECIMEN CARD · CLAIM &amp; BUY</span>
+        <svg viewBox="0 0 120 56" aria-hidden="true">
+          <polygon points="14,28 34,28 34,31 14,31" fill="#141414"/>
+          <polygon points="40,8 62,48 18,48" fill="#ffffff" stroke="#141414" stroke-width="3"/>
+          <g id="fan">
+            <polygon points="52,24 118,2 118,9 53,27" fill="#ff5d5d"/>
+            <polygon points="53,27 118,11 118,17 54,29" fill="#ff9f2e"/>
+            <polygon points="54,29 118,19 118,25 54,31" fill="#ffd23e"/>
+            <polygon points="54,31 118,27 118,33 54,33" fill="#3ecf6f"/>
+            <polygon points="54,33 118,35 118,41 53,35" fill="#3e9bff"/>
+            <polygon points="53,35 118,43 118,49 52,37" fill="#5a5ae0"/>
+            <polygon points="52,37 118,51 118,56 51,39" fill="#a55eea"/>
+          </g>
+        </svg>
+      </div>
+
+      <div class="bench">
+        <h3>The free share <span class="price free">SAMPLE A · FREE</span></h3>
+        <p>Every wallet may refract one share for free. No purchase, no catch — 500 samples, first come first served.</p>
+        <div class="meter"><i class="f" id="freeMeter"></i></div>
+        <div class="meter-row"><span><span id="freeSold">0</span> / 500 claimed</span><span><span id="freeLeft">500</span> left</span></div>
+        <button class="btn freeb" id="claimBtn" type="button" disabled>Claim opens at launch</button>
+      </div>
+
+      <div class="bench">
+        <h3>Buy shares <span class="price paid">SAMPLE B · 0.001 BNB</span></h3>
+        <p>2,500 shares at a fixed 0.001 BNB each, as many as you like.</p>
+        <div class="meter"><i class="p" id="paidMeter"></i></div>
+        <div class="meter-row"><span><span id="paidSold">0</span> / 2,500 sold</span><span><span id="paidLeft">2,500</span> left</span></div>
+        <div class="qtyrow">
+          <input id="buyQty" type="number" min="1" step="1" value="1" aria-label="Number of shares">
+          <span class="tot" id="buyTotal">= 0.001 BNB</span>
+        </div>
+        <button class="btn paidb" id="buyBtn" type="button" disabled>Sale opens at launch</button>
+      </div>
+
+      <p class="status" id="walletStatus">Wallet not connected yet — claiming and buying connect it for you.</p>
+    </section>
+  </main>
+
+  <!-- ===== WAVELENGTH SCALE ===== -->
+  <div class="nmscale">
+    <div class="nm-labels">
+      <span>380 nm · VIOLET END</span>
+      <span class="mid"><span id="totalTakenLbl">0</span> shares taken · <span id="totalLeftLbl">3,000 left</span> — the spectrum fills as shares sell</span>
+      <span>750 nm · RED END</span>
     </div>
-  </section>
-</div>
-
-<section class="specimen wrap" id="specimen">
-  <table>
-    <tr><th>SPECIMEN</th><td>Prism (PRSM) — one immutable contract, no owner, no admin keys</td></tr>
-    <tr><th>TOTAL SUPPLY</th><td>3,000,000,000 PRSM</td></tr>
-    <tr><th>ONE SHARE</th><td>1,000,000 PRSM</td></tr>
-    <tr><th>DISTRIBUTION</th><td>3,000 shares — 500 free (1 per wallet) + 2,500 at 0.001 BNB</td></tr>
-    <tr><th>PROCEEDS</th><td>100% forwarded to the treasury in the same transaction</td></tr>
-    <tr><th>WINDOW</th><td>16 Nov 2026, 21:30 WIB → 23 Nov 2026, 21:30 WIB</td></tr>
-    <tr><th>AT CLOSE</th><td>Anyone can call finalize() — every unsold PRSM still in the contract is burned</td></tr>
-    <tr><th>CONTRACT</th><td class="addr">0x125166e384Bb97195D19c9B48f20e14bdE68086C · verified on Sourcify (exact match)</td></tr>
-  </table>
-</section>
-
-<section class="proc wrap" id="procedure">
-  <h2>Procedure</h2>
-  <div class="steps">
-    <div class="step"><p class="no">STEP 01</p><h4>Connect a wallet</h4><p>Any BNB Smart Chain wallet works. Claiming or buying connects it for you — no sign-up, no account.</p></div>
-    <div class="step"><p class="no">STEP 02</p><h4>Take the free sample</h4><p>One free share per wallet while the 500 last. Then buy more at 0.001 BNB a share if you want a bigger slice of the spectrum.</p></div>
-    <div class="step"><p class="no">STEP 03</p><h4>Watch it burn</h4><p>When the window closes on 23 Nov, the unsold reserve is burned by a public finalize() call. What is sold is what exists.</p></div>
+    <div class="nm-track"><i id="totalBar"></i></div>
   </div>
-</section>
 
-<section class="notes wrap" id="agents">
-  <h2>Lab notes for agents</h2>
-  <div class="notebook">
-    <pre id="agentPrompt">You are helping me join the PRISM (PRSM) share sale on BNB Smart Chain (chainId 56).
+  <!-- ===== SHARE BOX ===== -->
+  <div class="sharewrap">
+    <section class="share" id="shareBox" hidden>
+      <span class="tag">MEASUREMENT LOGGED 🎉</span>
+      <p style="margin-bottom:12px">Your share is in. If you want to tell the lab, here is a ready-made post — nothing goes out without your tap.</p>
+      <div class="sharetext" id="shareText"></div>
+      <div class="row">
+        <a class="btn" id="shareBtn" href="#" target="_blank" rel="noopener" style="background:var(--blu)">Post it on X →</a>
+        <button class="btn ghost" id="shareClose" type="button">No thanks</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- ===== SLIDES ===== -->
+  <div class="slides-head">
+    <h2>Field notes</h2>
+    <p>DRAG / SCROLL SIDEWAYS →</p>
+  </div>
+  <div class="slides">
+    <section class="slide">
+      <p class="no">SLIDE 01 — SPECIMEN DATA</p>
+      <h3>What is in the beam</h3>
+      <dl>
+        <dt>SPECIMEN</dt><dd>Prism (PRSM) — one immutable contract, no owner, no admin keys</dd>
+        <dt>TOTAL SUPPLY</dt><dd>3,000,000,000 PRSM — fixed, forever</dd>
+        <dt>ONE SHARE</dt><dd>1,000,000 PRSM</dd>
+        <dt>DISTRIBUTION</dt><dd>3,000 shares — 500 free (1 per wallet) + 2,500 at 0.001 BNB</dd>
+        <dt>WINDOW</dt><dd>7 days — 16 Nov 2026, 21:30 WIB → 23 Nov 2026, 21:30 WIB</dd>
+        <dt>AT CLOSE</dt><dd>Anyone can call finalize() — every unsold PRSM still in the contract is burned</dd>
+        <dt>CONTRACT</dt><dd class="addr">0x125166e384Bb97195D19c9B48f20e14bdE68086C · verified on Sourcify (exact match)</dd>
+      </dl>
+    </section>
+
+    <section class="slide">
+      <p class="no">SLIDE 02 — PROCEDURE</p>
+      <h3>Three steps, no sign-up</h3>
+      <div class="step"><h4>01 · Connect a wallet</h4><p>Any BNB Smart Chain wallet works. Claiming or buying connects it for you — no account, no form.</p></div>
+      <div class="step"><h4>02 · Take the free sample</h4><p>One free share per wallet while the 500 last. Then buy more at 0.001 BNB a share if you want a bigger slice of the spectrum.</p></div>
+      <div class="step"><h4>03 · Watch it burn</h4><p>When the window closes on 23 Nov, the unsold reserve is burned by a public finalize() call. What is sold is what exists.</p></div>
+    </section>
+
+    <section class="slide">
+      <p class="no">SLIDE 03 — FOR AGENTS</p>
+      <h3>Lab notes</h3>
+      <div class="notebook">
+        <pre id="agentPrompt">You are helping me join the PRISM (PRSM) share sale on BNB Smart Chain (chainId 56).
 
 Contract: 0x125166e384Bb97195D19c9B48f20e14bdE68086C — check it on BscScan and Sourcify before sending anything.
 
-The readings: 3,000 shares of 1,000,000 PRSM each. 500 shares are free, one per wallet, via claimFree(). 2,500 shares cost 0.001 BNB each via buy(n) with exactly n × 0.001 BNB. Every payment is forwarded to the project treasury in the same transaction. There is no owner and no admin key. The window runs 16 Nov 2026 21:30 WIB to 23 Nov 2026 21:30 WIB; after it ends, anyone can call finalize() to burn whatever is left unsold.
+The readings: 3,000 shares of 1,000,000 PRSM each. 500 shares are free, one per wallet, via claimFree(). 2,500 shares cost 0.001 BNB each via buy(n) with exactly n × 0.001 BNB. There is no owner and no admin key. The window runs 16 Nov 2026 21:30 WIB to 23 Nov 2026 21:30 WIB; after it ends, anyone can call finalize() to burn whatever is left unsold.
 
 Procedure: 1) read freeSold() and paidSold(); 2) if I have not claimed and free shares remain, call claimFree(); 3) if I ask to buy, call buy(n) with the exact value; 4) report my PRSM balance and the transaction hash.
 
 When we are done, offer me a ready-made post for X and ask my approval before posting anything.</pre>
-    <button class="btn" id="copyPromptBtn" type="button">Copy the lab notes</button>
-  </div>
-</section>
+      </div>
+      <button class="btn" id="copyPromptBtn" type="button">Copy the lab notes</button>
+    </section>
 
-<section class="obs wrap">
-  <h2>Observations</h2>
-  <div class="qa"><h4>Is the free share really free?</h4><p>Yes — claimFree() costs only the network gas. One per wallet, 500 in total, and the contract enforces both limits itself.</p></div>
-  <div class="qa"><h4>Where does the money go?</h4><p>100% of every buy() payment is forwarded to the treasury address inside the same transaction. The contract keeps nothing and has no withdrawal function.</p></div>
-  <div class="qa"><h4>What happens to unsold shares?</h4><p>They are burned. After 23 Nov 21:30 WIB anyone can call finalize(), which destroys every PRSM still held by the contract.</p></div>
-  <div class="qa"><h4>Can the terms change?</h4><p>No. The price, caps, window and treasury are constants in a verified, immutable contract. There is no owner who could change them.</p></div>
-</section>
-
-<footer>
-  <div class="wrap">
-    <p>PRISM (PRSM) · Contract <span class="addr">0x125166e384Bb97195D19c9B48f20e14bdE68086C</span> · <a href="https://bscscan.com/address/0x125166e384Bb97195D19c9B48f20e14bdE68086C" target="_blank" rel="noopener">BscScan</a> · <a href="https://sourcify.dev/#/lookup/0x125166e384Bb97195D19c9B48f20e14bdE68086C" target="_blank" rel="noopener">Sourcify</a></p>
-    <p style="margin-top:8px">An optics experiment on BNB Smart Chain. Nothing here is financial advice — it is light, measured carefully.</p>
+    <section class="slide">
+      <p class="no">SLIDE 04 — OBSERVATIONS</p>
+      <h3>Asked at the bench</h3>
+      <div class="qa"><h4>Is the free share really free?</h4><p>Yes — claimFree() costs only the network gas. One per wallet, 500 in total, and the contract enforces both limits itself.</p></div>
+      <div class="qa"><h4>What happens to unsold shares?</h4><p>They are burned. After 23 Nov 21:30 WIB anyone can call finalize(), which destroys every PRSM still held by the contract.</p></div>
+      <div class="qa"><h4>Can the terms change?</h4><p>No. The price, caps and window are constants in a verified, immutable contract. There is no owner who could change them.</p></div>
+      <div class="qa"><h4>When does it end?</h4><p>The window closes 23 Nov 2026 at 21:30 WIB — seven days after it opens. The wavelength scale at the bottom of this page tracks what is left.</p></div>
+    </section>
   </div>
-</footer>
+
+  <footer>
+    <div class="in">
+      <p>PRISM (PRSM) · Contract <span class="addr">0x125166e384Bb97195D19c9B48f20e14bdE68086C</span> · <a href="https://bscscan.com/address/0x125166e384Bb97195D19c9B48f20e14bdE68086C" target="_blank" rel="noopener">BscScan</a> · <a href="https://sourcify.dev/#/lookup/0x125166e384Bb97195D19c9B48f20e14bdE68086C" target="_blank" rel="noopener">Sourcify</a></p>
+      <p style="margin-top:8px">An optics experiment on BNB Smart Chain. Nothing here is financial advice — it is light, measured carefully.</p>
+    </div>
+  </footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  // Living spectrum backdrop: white beam -> prism silhouette -> breathing fan + drifting photons.
+  var cv = document.getElementById("bg"), ctx = cv.getContext("2d");
+  var COLORS = ["#ff5d5d","#ff9f2e","#ffd23e","#3ecf6f","#3e9bff","#5a5ae0","#a55eea"];
+  var W = 0, H = 0, DPR = 1, parts = [];
+  var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function resize(){
+    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth; H = window.innerHeight;
+    cv.width = W * DPR; cv.height = H * DPR;
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  }
+  window.addEventListener("resize", resize); resize();
+  function prismGeom(){
+    var s = Math.min(W, H) * 0.17;
+    var cx = W * 0.40, cy = H * 0.44;
+    return { s: s, cx: cx, cy: cy,
+      ax: cx, ay: cy - s, lx: cx - s * 0.88, ly: cy + s * 0.82, rx: cx + s * 0.88, ry: cy + s * 0.82,
+      ox: cx + s * 0.30, oy: cy + s * 0.28 };
+  }
+  function spawn(p, g){
+    var band = Math.floor(Math.random() * 7);
+    p.band = band; p.t = Math.random() * 0.25; p.spd = 0.0016 + Math.random() * 0.0032;
+    p.r = 1.3 + Math.random() * 2.1; p.ox = g.ox; p.oy = g.oy;
+    return p;
+  }
+  for (var i = 0; i < 44; i++){ var p0 = {}; parts.push(p0); }
+  var inited = false;
+  function draw(now){
+    var t = now / 1000, g = prismGeom();
+    ctx.fillStyle = "#f6f6f2"; ctx.fillRect(0, 0, W, H);
+    // faint blueprint grid
+    ctx.strokeStyle = "rgba(20,20,20,0.055)"; ctx.lineWidth = 1; ctx.beginPath();
+    for (var x = 0; x <= W; x += 34){ ctx.moveTo(x, 0); ctx.lineTo(x, H); }
+    for (var y = 0; y <= H; y += 34){ ctx.moveTo(0, y); ctx.lineTo(W, y); }
+    ctx.stroke();
+    // spectrum fan (breathing spread)
+    var spread = (30 + 8 * Math.sin(t * 0.45)) * Math.PI / 180;
+    var base = -0.10 + 0.03 * Math.sin(t * 0.3);
+    var L = W * 0.85;
+    for (var i = 0; i < 7; i++){
+      var a0 = base - spread / 2 + spread * i / 7, a1 = base - spread / 2 + spread * (i + 1) / 7;
+      ctx.fillStyle = COLORS[i]; ctx.globalAlpha = 0.42;
+      ctx.beginPath(); ctx.moveTo(g.ox, g.oy);
+      ctx.lineTo(g.ox + Math.cos(a0) * L, g.oy + Math.sin(a0) * L);
+      ctx.lineTo(g.ox + Math.cos(a1) * L, g.oy + Math.sin(a1) * L);
+      ctx.closePath(); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    // incoming white beam (soft glow + bright core)
+    var by = g.cy + g.s * 0.30;
+    ctx.save();
+    ctx.shadowColor = "rgba(255,255,255,0.95)"; ctx.shadowBlur = 26;
+    ctx.strokeStyle = "rgba(255,255,255,0.9)"; ctx.lineWidth = 13; ctx.lineCap = "round";
+    ctx.beginPath(); ctx.moveTo(-10, by + 7); ctx.lineTo(g.lx + g.s * 0.30, by); ctx.stroke();
+    ctx.restore();
+    ctx.strokeStyle = "rgba(20,20,20,0.35)"; ctx.lineWidth = 1.4;
+    ctx.beginPath(); ctx.moveTo(-10, by + 7); ctx.lineTo(g.lx + g.s * 0.30, by); ctx.stroke();
+    // prism silhouette
+    ctx.fillStyle = "rgba(20,20,20,0.94)";
+    ctx.beginPath(); ctx.moveTo(g.ax, g.ay); ctx.lineTo(g.rx, g.ry); ctx.lineTo(g.lx, g.ly); ctx.closePath(); ctx.fill();
+    ctx.fillStyle = "rgba(255,255,255,0.16)";
+    ctx.beginPath(); ctx.moveTo(g.ax, g.ay); ctx.lineTo(g.cx + g.s * 0.1, g.ly); ctx.lineTo(g.lx, g.ly); ctx.closePath(); ctx.fill();
+    // drifting photons along the fan
+    if (!inited){ for (var j = 0; j < parts.length; j++){ spawn(parts[j], g); parts[j].t = Math.random(); } inited = true; }
+    for (var k = 0; k < parts.length; k++){
+      var p = parts[k]; p.t += p.spd * (reduced ? 0 : 1);
+      if (p.t > 1){ spawn(p, g); p.t = 0; }
+      var ang = base - spread / 2 + spread * (p.band + 0.5) / 7;
+      var d = p.t * L * 0.92;
+      var px = g.ox + Math.cos(ang) * d, py = g.oy + Math.sin(ang) * d + Math.sin(t * 1.4 + k) * 3;
+      ctx.globalAlpha = 0.25 + 0.55 * Math.sin(Math.min(p.t, 1) * Math.PI);
+      ctx.fillStyle = COLORS[p.band];
+      ctx.beginPath(); ctx.arc(px, py, p.r, 0, 6.2832); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    if (!reduced) requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+</script>
 <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.5/dist/ethers.umd.min.js"></script>
 <script>
 (function(){
@@ -335,7 +433,7 @@ When we are done, offer me a ready-made post for X and ask my approval before po
     var cb = $("claimBtn"), bb = $("buyBtn");
     if (!CONTRACT){ return; }
     if (phase === "before"){ cb.disabled = true; bb.disabled = true;
-      cb.textContent = "Claim opens Nov 16, 19:00 WIB"; bb.textContent = "Sale opens Nov 16, 19:00 WIB"; return; }
+      cb.textContent = "Claim opens Nov 16, 21:30 WIB"; bb.textContent = "Sale opens Nov 16, 21:30 WIB"; return; }
     if (phase === "after"){ cb.disabled = true; bb.disabled = true;
       cb.textContent = "Free claims closed"; bb.textContent = "Sale closed"; return; }
     cb.disabled = f >= FREE_CAP; cb.textContent = f >= FREE_CAP ? "Free shares gone" : "Claim my free share";
@@ -417,7 +515,7 @@ When we are done, offer me a ready-made post for X and ask my approval before po
   });
   $("buyQty").addEventListener("input", function(){
     var n = parseInt($("buyQty").value, 10) || 0;
-    $("buyTotal").textContent = "= " + (n * 0.002).toFixed(3).replace(/0+$/, "").replace(/\.$/, ".0") + " BNB";
+    $("buyTotal").textContent = "= " + (n * 0.001).toFixed(4).replace(/0+$/, "").replace(/\.$/, ".0") + " BNB";
   });
 
   var cpBtn = $("copyPromptBtn");
@@ -463,7 +561,7 @@ When we are done, offer me a ready-made post for X and ask my approval before po
     setInterval(function(){
       var w = parseFloat(bar.style.width) || 0;
       var sx = 0.12 + (w/100) * 0.88;
-      fan.style.transform = "scaleX(" + sx.toFixed(3) + ")";
+      fan.style.transform = "scaleX(" + sx.toFixed(4) + ")";
     }, 1500);
   }
 })();
