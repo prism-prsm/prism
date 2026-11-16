@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PRISM (PRSM) — The Light Lab · Share Sale on BSC</title>
+<meta name="description" content="PRISM is a fixed-supply share sale on BNB Smart Chain. 3,000 shares of 1,000,000 PRSM: 500 free (1 per wallet), 2,500 at 0.001 BNB. 100% of proceeds go to the treasury. Unsold supply is burned at close.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><polygon points='50,8 92,86 8,86' fill='none' stroke='%23141414' stroke-width='7'/><polygon points='50,34 74,86 26,86' fill='%23ff5d5d'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f6f6f2; --ink:#141414; --mut:#5c5c55;
+    --red:#ff5d5d; --org:#ff9f2e; --yel:#ffd23e; --grn:#3ecf6f; --blu:#3e9bff; --ind:#5a5ae0; --vio:#a55eea;
+    --line:#141414;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:"Space Grotesk",system-ui,sans-serif;
+    background-image:linear-gradient(#14141410 1px,transparent 1px),linear-gradient(90deg,#14141410 1px,transparent 1px);
+    background-size:34px 34px;}
+  .mono{font-family:"IBM Plex Mono",monospace}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 20px}
+  header{border-bottom:3px solid var(--line);background:var(--paper)}
+  .topbar{display:flex;justify-content:space-between;align-items:center;padding:14px 0;gap:12px;flex-wrap:wrap}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.14em}
+  .brand svg{width:26px;height:26px}
+  .topbar nav{display:flex;gap:18px;font-family:"IBM Plex Mono",monospace;font-size:13px}
+  .topbar nav a{color:var(--ink);text-decoration:none;border-bottom:2px solid transparent}
+  .topbar nav a:hover{border-color:var(--ink)}
+  .spec-tag{font-family:"IBM Plex Mono",monospace;font-size:12px;border:2px solid var(--line);padding:6px 10px;background:#fff}
+  /* hero */
+  .hero{padding:52px 0 30px;border-bottom:3px solid var(--line)}
+  .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:13px;letter-spacing:.18em;color:var(--mut)}
+  h1{font-size:clamp(64px,13vw,148px);line-height:.94;font-weight:700;letter-spacing:-.01em;margin:10px 0 4px}
+  h1 .spec{background:linear-gradient(90deg,var(--red),var(--org),var(--yel),var(--grn),var(--blu),var(--ind),var(--vio));
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  .lede{font-size:clamp(17px,2.4vw,21px);max-width:620px;line-height:1.45}
+  .lede b{background:linear-gradient(transparent 62%,var(--yel) 62%)}
+  .beambox{margin:34px 0 8px;border:3px solid var(--line);background:#fff;padding:10px 6px 2px}
+  .beambox svg{width:100%;height:auto;display:block}
+  .beamcap{display:flex;justify-content:space-between;font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--mut);padding:8px 8px 10px}
+  .cdrow{display:flex;gap:14px;flex-wrap:wrap;margin-top:22px}
+  .cd{border:2px solid var(--line);background:#fff;padding:10px 16px;font-family:"IBM Plex Mono",monospace}
+  .cd .k{font-size:11px;letter-spacing:.16em;color:var(--mut)}
+  .cd .v{font-size:22px;font-weight:600}
+  /* spectrum progress */
+  .spectrum{padding:34px 0 6px}
+  .spec-head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px}
+  .spec-head h2{font-size:26px}
+  .track{position:relative;height:30px;border:3px solid var(--line);background:#fff;margin-top:14px;overflow:hidden}
+  .track i{position:absolute;inset:0;width:0%;
+    background:linear-gradient(90deg,var(--red),var(--org),var(--yel),var(--grn),var(--blu),var(--ind),var(--vio));
+    transition:width 1s ease}
+  .scale{display:flex;justify-content:space-between;font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--mut);margin-top:6px}
+  /* specimen table */
+  .specimen{padding:30px 0}
+  table{width:100%;border-collapse:collapse;background:#fff;border:3px solid var(--line)}
+  th,td{border-bottom:1.5px solid #14141433;padding:11px 14px;text-align:left;font-size:15px}
+  th{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.14em;color:var(--mut);width:34%}
+  tr:last-child th,tr:last-child td{border-bottom:none}
+  td{font-weight:600}
+  /* benches */
+  .benches{display:grid;grid-template-columns:1fr 1fr;gap:20px;padding:16px 0 8px}
+  @media(max-width:760px){.benches{grid-template-columns:1fr}}
+  .bench{border:3px solid var(--line);background:#fff;padding:22px;position:relative}
+  .bench .tag{position:absolute;top:-14px;left:16px;font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:600;padding:4px 10px;border:2.5px solid var(--line)}
+  .tag.free{background:var(--grn)} .tag.paid{background:var(--vio);color:#fff}
+  .bench h3{font-size:23px;margin:6px 0 4px}
+  .bench p{color:var(--mut);line-height:1.5;font-size:15px}
+  .meter{height:16px;border:2.5px solid var(--line);background:#fff;margin:16px 0 8px;overflow:hidden}
+  .meter i{display:block;height:100%;width:0%;transition:width 1s ease}
+  .meter .f{background:var(--grn)} .meter .p{background:var(--vio)}
+  .meter-row{display:flex;justify-content:space-between;font-family:"IBM Plex Mono",monospace;font-size:13px}
+  .qtyrow{display:flex;align-items:center;gap:12px;margin:14px 0 4px}
+  .qtyrow input{width:90px;font-family:"IBM Plex Mono",monospace;font-size:17px;padding:9px;border:2.5px solid var(--line)}
+  .qtyrow .tot{font-family:"IBM Plex Mono",monospace;font-weight:600}
+  .btn{display:inline-block;width:100%;margin-top:14px;padding:15px;font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:17px;
+    border:3px solid var(--line);cursor:pointer;background:var(--ink);color:#fff;transition:transform .08s}
+  .btn:hover:not(:disabled){transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--line)}
+  .btn:disabled{opacity:.45;cursor:not-allowed}
+  .btn.freeb{background:var(--grn);color:var(--ink)} .btn.paidb{background:var(--vio)}
+  .status{font-family:"IBM Plex Mono",monospace;font-size:13.5px;padding:6px 0 26px;color:var(--mut)}
+  /* share */
+  .share{border:3px dashed var(--line);background:#fffbe8;padding:22px;margin:8px 0 30px}
+  .share .tag{display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:600;background:var(--yel);border:2.5px solid var(--line);padding:4px 10px;margin-bottom:12px}
+  .sharetext{white-space:pre-wrap;font-size:16px;line-height:1.55;border:2px solid var(--line);background:#fff;padding:14px}
+  .share .row{display:flex;gap:12px;margin-top:14px;flex-wrap:wrap}
+  .share .row .btn{width:auto;padding:12px 22px;margin-top:0}
+  .btn.ghost{background:#fff;color:var(--ink)}
+  /* procedure */
+  .proc{padding:20px 0 34px}
+  .proc h2,.notes h2,.obs h2{font-size:28px;margin-bottom:16px}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media(max-width:760px){.steps{grid-template-columns:1fr}}
+  .step{border:3px solid var(--line);background:#fff;padding:18px}
+  .step .no{font-family:"IBM Plex Mono",monospace;font-size:13px;letter-spacing:.14em;color:var(--mut)}
+  .step h4{font-size:19px;margin:6px 0}
+  .step p{color:var(--mut);line-height:1.5;font-size:15px}
+  /* agent notes */
+  .notes{padding:6px 0 34px}
+  .notebook{border:3px solid var(--line);background:#fff;padding:20px;
+    background-image:repeating-linear-gradient(#fff 0 27px,#3e9bff30 27px 28px)}
+  .notebook pre{white-space:pre-wrap;font-family:"IBM Plex Mono",monospace;font-size:13.5px;line-height:28px}
+  .notebook .btn{width:auto;padding:12px 22px}
+  /* observations */
+  .obs{padding:6px 0 40px}
+  .qa{border:3px solid var(--line);background:#fff;padding:16px 18px;margin-bottom:12px}
+  .qa h4{font-size:17px;margin-bottom:4px}
+  .qa p{color:var(--mut);line-height:1.5;font-size:15px}
+  footer{border-top:3px solid var(--line);padding:22px 0 34px;font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--mut)}
+  footer a{color:var(--ink)}
+  .addr{word-break:break-all}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap topbar">
+    <div class="brand">
+      <svg viewBox="0 0 100 100" aria-hidden="true"><polygon points="50,8 92,86 8,86" fill="none" stroke="#141414" stroke-width="7"/><polygon points="50,34 74,86 26,86" fill="#ff5d5d"/></svg>
+      PRISM&nbsp;LAB
+    </div>
+    <nav>
+      <a href="#sale">Benches</a><a href="#specimen">Specimen</a><a href="#procedure">Procedure</a><a href="#agents">For Agents</a>
+    </nav>
+    <span class="spec-tag">SPECIMEN Nº 47 · BSC</span>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow">OPTICS BENCH · FIXED-SUPPLY SHARE SALE · BNB SMART CHAIN</p>
+    <h1>PRI<span class="spec">SM</span></h1>
+    <p class="lede">One beam of plain white light goes in. <b>Seven colors</b> come out. PRSM is the spectrum, sold by the share: <b>3,000 shares</b> of 1,000,000 PRSM — the first <b>500 are free</b>, one per wallet, and every payment lands in the treasury the second it is made.</p>
+
+    <div class="beambox" aria-hidden="true">
+      <svg viewBox="0 0 900 210">
+        <!-- incoming beam -->
+        <polygon points="0,98 300,102 300,110 0,116" fill="#141414" opacity="0.85"/>
+        <!-- prism -->
+        <polygon points="330,20 420,180 240,180" fill="#ffffff" stroke="#141414" stroke-width="5"/>
+        <polygon points="330,84 372,180 288,180" fill="#141414" opacity="0.08"/>
+        <!-- spectrum fan (grows with sales) -->
+        <g id="fan">
+          <polygon points="352,96 890,6 890,34 356,104" fill="#ff5d5d"/>
+          <polygon points="356,104 890,40 890,66 358,110" fill="#ff9f2e"/>
+          <polygon points="358,110 890,72 890,96 359,116" fill="#ffd23e"/>
+          <polygon points="359,116 890,102 890,124 359,121" fill="#3ecf6f"/>
+          <polygon points="359,121 890,130 890,152 358,126" fill="#3e9bff"/>
+          <polygon points="358,126 890,158 890,180 356,130" fill="#5a5ae0"/>
+          <polygon points="356,130 890,186 890,206 352,134" fill="#a55eea"/>
+        </g>
+      </svg>
+      <div class="beamcap"><span>FIG. 1 — REFRACTION, LIVE. THE FAN WIDENS AS SHARES SELL.</span><span>SCALE 1 : 1,000,000</span></div>
+    </div>
+
+    <div class="cdrow">
+      <div class="cd"><div class="k">BEAM LIVE IN</div><div class="v" id="cdStart">--:--:--</div></div>
+      <div class="cd"><div class="k">WINDOW CLOSES</div><div class="v">23 NOV · 21:30 WIB</div></div>
+      <div class="cd"><div class="k">PROCEEDS TO TREASURY</div><div class="v">100%</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="spectrum wrap">
+  <div class="spec-head">
+    <h2>The spectrum so far</h2>
+    <p class="mono"><span id="totalTakenLbl">0</span> shares taken · <span id="totalLeftLbl">3,000 left</span></p>
+  </div>
+  <div class="track"><i id="totalBar"></i></div>
+  <div class="scale"><span>380 nm · VIOLET END</span><span>VISIBLE LIGHT, SOLD BY THE SHARE</span><span>750 nm · RED END</span></div>
+</section>
+
+<section class="benches wrap" id="sale">
+  <div class="bench">
+    <span class="tag free">SAMPLE A — FREE</span>
+    <h3>The free share</h3>
+    <p>Every wallet may refract one share for free. No purchase, no catch — 500 samples, first come first served.</p>
+    <div class="meter"><i class="f" id="freeMeter"></i></div>
+    <div class="meter-row"><span><span id="freeSold">0</span> / 500 claimed</span><span><span id="freeLeft">500</span> left</span></div>
+    <button class="btn freeb" id="claimBtn" type="button" disabled>Claim opens at launch</button>
+  </div>
+  <div class="bench">
+    <span class="tag paid">SAMPLE B — 0.001 BNB</span>
+    <h3>Buy shares</h3>
+    <p>2,500 shares at a fixed 0.001 BNB each, as many as you like. The full amount is forwarded to the treasury in the same transaction.</p>
+    <div class="meter"><i class="p" id="paidMeter"></i></div>
+    <div class="meter-row"><span><span id="paidSold">0</span> / 2,500 sold</span><span><span id="paidLeft">2,500</span> left</span></div>
+    <div class="qtyrow">
+      <input id="buyQty" type="number" min="1" step="1" value="1" aria-label="Number of shares">
+      <span class="tot" id="buyTotal">= 0.001 BNB</span>
+    </div>
+    <button class="btn paidb" id="buyBtn" type="button" disabled>Sale opens at launch</button>
+  </div>
+</section>
+<div class="wrap"><p class="status" id="walletStatus">Wallet not connected yet — claiming and buying connect it for you.</p></div>
+
+<div class="wrap">
+  <section class="share" id="shareBox" hidden>
+    <span class="tag">MEASUREMENT LOGGED 🎉</span>
+    <p style="margin-bottom:12px">Your share is in. If you want to tell the lab, here is a ready-made post — nothing goes out without your tap.</p>
+    <div class="sharetext" id="shareText"></div>
+    <div class="row">
+      <a class="btn" id="shareBtn" href="#" target="_blank" rel="noopener" style="background:var(--blu)">Post it on X →</a>
+      <button class="btn ghost" id="shareClose" type="button">No thanks</button>
+    </div>
+  </section>
+</div>
+
+<section class="specimen wrap" id="specimen">
+  <table>
+    <tr><th>SPECIMEN</th><td>Prism (PRSM) — one immutable contract, no owner, no admin keys</td></tr>
+    <tr><th>TOTAL SUPPLY</th><td>3,000,000,000 PRSM</td></tr>
+    <tr><th>ONE SHARE</th><td>1,000,000 PRSM</td></tr>
+    <tr><th>DISTRIBUTION</th><td>3,000 shares — 500 free (1 per wallet) + 2,500 at 0.001 BNB</td></tr>
+    <tr><th>PROCEEDS</th><td>100% forwarded to the treasury in the same transaction</td></tr>
+    <tr><th>WINDOW</th><td>16 Nov 2026, 21:30 WIB → 23 Nov 2026, 21:30 WIB</td></tr>
+    <tr><th>AT CLOSE</th><td>Anyone can call finalize() — every unsold PRSM still in the contract is burned</td></tr>
+    <tr><th>CONTRACT</th><td class="addr">0x125166e384Bb97195D19c9B48f20e14bdE68086C · verified on Sourcify (exact match)</td></tr>
+  </table>
+</section>
+
+<section class="proc wrap" id="procedure">
+  <h2>Procedure</h2>
+  <div class="steps">
+    <div class="step"><p class="no">STEP 01</p><h4>Connect a wallet</h4><p>Any BNB Smart Chain wallet works. Claiming or buying connects it for you — no sign-up, no account.</p></div>
+    <div class="step"><p class="no">STEP 02</p><h4>Take the free sample</h4><p>One free share per wallet while the 500 last. Then buy more at 0.001 BNB a share if you want a bigger slice of the spectrum.</p></div>
+    <div class="step"><p class="no">STEP 03</p><h4>Watch it burn</h4><p>When the window closes on 23 Nov, the unsold reserve is burned by a public finalize() call. What is sold is what exists.</p></div>
+  </div>
+</section>
+
+<section class="notes wrap" id="agents">
+  <h2>Lab notes for agents</h2>
+  <div class="notebook">
+    <pre id="agentPrompt">You are helping me join the PRISM (PRSM) share sale on BNB Smart Chain (chainId 56).
+
+Contract: 0x125166e384Bb97195D19c9B48f20e14bdE68086C — check it on BscScan and Sourcify before sending anything.
+
+The readings: 3,000 shares of 1,000,000 PRSM each. 500 shares are free, one per wallet, via claimFree(). 2,500 shares cost 0.001 BNB each via buy(n) with exactly n × 0.001 BNB. Every payment is forwarded to the project treasury in the same transaction. There is no owner and no admin key. The window runs 16 Nov 2026 21:30 WIB to 23 Nov 2026 21:30 WIB; after it ends, anyone can call finalize() to burn whatever is left unsold.
+
+Procedure: 1) read freeSold() and paidSold(); 2) if I have not claimed and free shares remain, call claimFree(); 3) if I ask to buy, call buy(n) with the exact value; 4) report my PRSM balance and the transaction hash.
+
+When we are done, offer me a ready-made post for X and ask my approval before posting anything.</pre>
+    <button class="btn" id="copyPromptBtn" type="button">Copy the lab notes</button>
+  </div>
+</section>
+
+<section class="obs wrap">
+  <h2>Observations</h2>
+  <div class="qa"><h4>Is the free share really free?</h4><p>Yes — claimFree() costs only the network gas. One per wallet, 500 in total, and the contract enforces both limits itself.</p></div>
+  <div class="qa"><h4>Where does the money go?</h4><p>100% of every buy() payment is forwarded to the treasury address inside the same transaction. The contract keeps nothing and has no withdrawal function.</p></div>
+  <div class="qa"><h4>What happens to unsold shares?</h4><p>They are burned. After 23 Nov 21:30 WIB anyone can call finalize(), which destroys every PRSM still held by the contract.</p></div>
+  <div class="qa"><h4>Can the terms change?</h4><p>No. The price, caps, window and treasury are constants in a verified, immutable contract. There is no owner who could change them.</p></div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>PRISM (PRSM) · Contract <span class="addr">0x125166e384Bb97195D19c9B48f20e14bdE68086C</span> · <a href="https://bscscan.com/address/0x125166e384Bb97195D19c9B48f20e14bdE68086C" target="_blank" rel="noopener">BscScan</a> · <a href="https://sourcify.dev/#/lookup/0x125166e384Bb97195D19c9B48f20e14bdE68086C" target="_blank" rel="noopener">Sourcify</a></p>
+    <p style="margin-top:8px">An optics experiment on BNB Smart Chain. Nothing here is financial advice — it is light, measured carefully.</p>
+  </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/ethers@6.13.5/dist/ethers.umd.min.js"></script>
+<script>
+(function(){
+  "use strict";
+  // Filled from deploy/info.json when the contract is published; empty = pre-launch mode.
+  var CONTRACT = "0x125166e384Bb97195D19c9B48f20e14bdE68086C";
+  var SITE_URL = "https://prism-prsm.github.io/prism/";
+  var START = 1794839400, END = 1795444200; // 2026-11-16 21:30 WIB -> 2026-11-23 21:30 WIB
+  var PRICE_WEI = "1000000000000000"; // 0.001 BNB
+  var FREE_CAP = 500, PAID_CAP = 2500;
+  var SHARE_TEXT = "One beam in, seven colors out 🌈\n\n" +
+    "I just took my share of PRISM on BSC — 1 share = 1,000,000 $PRSM, and 500 shares were free, one per wallet.\n\n" +
+    "The spectrum is still open 👇\n" + SITE_URL;
+  var ABI = [
+    "function claimFree()",
+    "function buy(uint256 n) payable",
+    "function freeSold() view returns (uint256)",
+    "function paidSold() view returns (uint256)",
+    "function freeClaimed(address) view returns (bool)"
+  ];
+  var RPCS = ["https://bsc-dataseed.binance.org", "https://bsc.publicnode.com",
+              "https://bsc-mainnet.nodereal.io/v1/64a9df0874fb4a93b9d0a3849de012d3"];
+  var signerContract = null, userAddr = null;
+
+  function $(id){ return document.getElementById(id); }
+  function fmt(n){ return Number(n).toLocaleString("en-US"); }
+  function setStatus(t){ var s = $("walletStatus"); if(s) s.textContent = t; }
+
+  function showShare(){
+    $("shareText").textContent = SHARE_TEXT;
+    $("shareBtn").href = "https://x.com/intent/post?text=" + encodeURIComponent(SHARE_TEXT);
+    var box = $("shareBox");
+    box.hidden = false;
+    box.scrollIntoView({behavior:"smooth", block:"center"});
+  }
+  $("shareClose").addEventListener("click", function(){ $("shareBox").hidden = true; });
+
+  async function readContract(){
+    for (var i = 0; i < RPCS.length; i++){
+      try {
+        var p = new ethers.JsonRpcProvider(RPCS[i], 56);
+        return new ethers.Contract(CONTRACT, ABI, p);
+      } catch(e){ /* try next */ }
+    }
+    return null;
+  }
+
+  async function refreshStats(){
+    if (!CONTRACT || typeof ethers === "undefined") return;
+    try {
+      var ro = await readContract(); if (!ro) return;
+      var f = Number(await ro.freeSold()), p = Number(await ro.paidSold());
+      $("freeSold").textContent = fmt(f); $("freeLeft").textContent = fmt(FREE_CAP - f);
+      $("paidSold").textContent = fmt(p); $("paidLeft").textContent = fmt(PAID_CAP - p);
+      $("freeMeter").style.width = (f / FREE_CAP * 100) + "%";
+      $("paidMeter").style.width = (p / PAID_CAP * 100) + "%";
+      var tb = $("totalBar"), taken = f + p, cap = FREE_CAP + PAID_CAP;
+      if (tb) tb.style.width = ((cap - taken) / cap * 100) + "%";
+      $("totalTakenLbl").textContent = fmt(taken);
+      $("totalLeftLbl").textContent = fmt(cap - taken) + " left";
+      updateButtons(f, p);
+    } catch(e){ /* keep last shown values */ }
+  }
+
+  function salePhase(){
+    var now = Math.floor(Date.now() / 1000);
+    if (now < START) return "before";
+    if (now > END) return "after";
+    return "live";
+  }
+
+  function updateButtons(f, p){
+    var phase = salePhase();
+    var cb = $("claimBtn"), bb = $("buyBtn");
+    if (!CONTRACT){ return; }
+    if (phase === "before"){ cb.disabled = true; bb.disabled = true;
+      cb.textContent = "Claim opens Nov 16, 19:00 WIB"; bb.textContent = "Sale opens Nov 16, 19:00 WIB"; return; }
+    if (phase === "after"){ cb.disabled = true; bb.disabled = true;
+      cb.textContent = "Free claims closed"; bb.textContent = "Sale closed"; return; }
+    cb.disabled = f >= FREE_CAP; cb.textContent = f >= FREE_CAP ? "Free shares gone" : "Claim my free share";
+    bb.disabled = p >= PAID_CAP; bb.textContent = p >= PAID_CAP ? "Sold out" : "Buy shares";
+  }
+
+  function loadScript(u){
+    return new Promise(function(res, rej){
+      var s = document.createElement("script");
+      s.src = u; s.onload = res; s.onerror = rej;
+      document.head.appendChild(s);
+    });
+  }
+  async function loadWC(){
+    if (window["@walletconnect/ethereum-provider"]) return;
+    var urls = ["https://unpkg.com/@walletconnect/ethereum-provider@2.21.0/dist/index.umd.js",
+                "https://cdn.jsdelivr.net/npm/@walletconnect/ethereum-provider@2.21.0/dist/index.umd.js"];
+    for (var i = 0; i < urls.length; i++){
+      try { await loadScript(urls[i]); if (window["@walletconnect/ethereum-provider"]) return; } catch(e){ /* fallback */ }
+    }
+    throw new Error("WalletConnect failed to load");
+  }
+
+  async function connectWallet(){
+    if (signerContract) return signerContract;
+    var eip1193 = null;
+    if (window.ethereum){ eip1193 = window.ethereum; }
+    else {
+      await loadWC();
+      var wc = await window["@walletconnect/ethereum-provider"].EthereumProvider.init({
+        projectId: "ff5985647ed78916bed0155d2ff84a1c",
+        chains: [56],
+        showQrModal: true,
+        rpcMap: { 56: RPCS[0] },
+        metadata: { name: "Prism (PRSM)", description: "Prism share sale on BNB Smart Chain",
+                    url: SITE_URL, icons: [] }
+      });
+      await wc.connect();
+      eip1193 = wc;
+    }
+    var bp = new ethers.BrowserProvider(eip1193);
+    var net = await bp.getNetwork();
+    if (Number(net.chainId) !== 56){
+      try { await eip1193.request({ method: "wallet_switchEthereumChain", params: [{ chainId: "0x38" }] }); } catch(e){ /* user may switch manually */ }
+      bp = new ethers.BrowserProvider(eip1193);
+    }
+    var signer = await bp.getSigner();
+    userAddr = await signer.getAddress();
+    signerContract = new ethers.Contract(CONTRACT, ABI, signer);
+    setStatus("Wallet connected: " + userAddr.slice(0, 6) + "…" + userAddr.slice(-4));
+    return signerContract;
+  }
+
+  async function runTx(fn){
+    try {
+      setStatus("Waiting for your wallet…");
+      var c = await connectWallet();
+      var tx = await fn(c);
+      setStatus("Sent — waiting for the chain to confirm…");
+      await tx.wait();
+      setStatus("Confirmed on-chain. Your color is in the spectrum 🌈");
+      await refreshStats();
+      showShare();
+      return true;
+    } catch(e){
+      setStatus("That did not go through: " + (e && e.shortMessage ? e.shortMessage : (e && e.message ? e.message.slice(0, 140) : "unknown error")));
+      return false;
+    }
+  }
+
+  $("claimBtn").addEventListener("click", function(){
+    runTx(function(c){ return c.claimFree(); });
+  });
+  $("buyBtn").addEventListener("click", function(){
+    var n = parseInt($("buyQty").value, 10);
+    if (!n || n < 1){ setStatus("Pick at least 1 share."); return; }
+    var value = (BigInt(PRICE_WEI) * BigInt(n)).toString();
+    runTx(function(c){ return c.buy(n, { value: value }); });
+  });
+  $("buyQty").addEventListener("input", function(){
+    var n = parseInt($("buyQty").value, 10) || 0;
+    $("buyTotal").textContent = "= " + (n * 0.002).toFixed(3).replace(/0+$/, "").replace(/\.$/, ".0") + " BNB";
+  });
+
+  var cpBtn = $("copyPromptBtn");
+  if (cpBtn){
+    cpBtn.addEventListener("click", function(){
+      var t = $("agentPrompt").innerText;
+      function done(){ cpBtn.textContent = "Copied ✓"; setTimeout(function(){ cpBtn.textContent = "Copy the prompt"; }, 2000); }
+      function fallback(){
+        var ta = document.createElement("textarea");
+        ta.value = t; document.body.appendChild(ta); ta.select();
+        try { document.execCommand("copy"); done(); } catch(e){}
+        document.body.removeChild(ta);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(t).then(done).catch(fallback); }
+      else { fallback(); }
+    });
+  }
+
+  if (CONTRACT){ refreshStats(); setInterval(refreshStats, 30000); updateButtons(0, 0); }
+})();
+</script>
+</body>
+<script>
+(function(){
+  "use strict";
+  var START = 1794839400;
+  var cd = document.getElementById("cdStart");
+  function pad(n){ return (n<10?"0":"")+n; }
+  function tick(){
+    var now = Math.floor(Date.now()/1000), d = START - now;
+    if(!cd) return;
+    if(d <= 0){ cd.textContent = "BEAM IS LIVE"; return; }
+    var h = Math.floor(d/3600), m = Math.floor(d%3600/60), s = d%60;
+    cd.textContent = pad(h)+":"+pad(m)+":"+pad(s);
+    setTimeout(tick, 1000);
+  }
+  tick();
+  // widen the spectrum fan as the sale bar fills
+  var fan = document.getElementById("fan"), bar = document.getElementById("totalBar");
+  if(fan && bar){
+    fan.style.transformBox = "fill-box";
+    fan.style.transformOrigin = "0% 50%";
+    setInterval(function(){
+      var w = parseFloat(bar.style.width) || 0;
+      var sx = 0.12 + (w/100) * 0.88;
+      fan.style.transform = "scaleX(" + sx.toFixed(3) + ")";
+    }, 1500);
+  }
+})();
+</script>
+</body>
+</html>
